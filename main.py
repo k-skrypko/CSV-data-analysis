@@ -19,8 +19,7 @@ def select_csv_file():
     return selected_file
 
 
-def select_column():
-    df = pd.read_csv(select_csv_file())
+def select_column(df):
     print(df.columns.tolist())
 
     selected_column = input("Введіть назву колонки: ")
@@ -31,30 +30,35 @@ def select_column():
     return selected_column
 
 
-def average_number():
-    pass
+def average_number(column, df):
+    print(f"Середнє значення для колонки {column}:")
+    return round(df[column].mean(), 1)
 
 
-def min_number():
-    pass
+def min_number(column, df):
+    print(f"Мінімальне значення для колонки {column}:")
+    return df[column].min()
 
 
-def max_number():
-    pass
+def max_number(column, df):
+    print(f"Максимальне значення для колонки {column}:")
+    return df[column].max()
 
 
 def main():
-    select_column()
+    df = pd.read_csv(select_csv_file())
+    selected_culumn = select_column(df)
+
     operation = input("Оберіть бажану операцію (avg/min/max): ")
 
     if operation == "avg":
-        average_number()
+        return average_number(selected_culumn, df)
 
     elif operation == "min":
-        min_number()
+        return min_number(selected_culumn, df)
 
     elif operation == "max":
-        max_number()
+        return max_number(selected_culumn, df)
 
     else:
         raise Exception("Неправильно обрана операція.")
