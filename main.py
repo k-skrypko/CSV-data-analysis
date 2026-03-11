@@ -4,8 +4,6 @@ from tkinter import filedialog
 
 
 def select_csv_file():
-    selected_file = None
-
     root = tk.Tk()
     root.withdraw()
 
@@ -13,6 +11,9 @@ def select_csv_file():
         title="Оберіть CSV файл",
         filetypes=[("CSV файли", "*.csv")]
     )
+
+    if not file_path:
+        raise Exception("Файл не обрано.")
 
     selected_file = file_path
 
@@ -36,29 +37,29 @@ def average_number(column, df):
 
 
 def min_number(column, df):
-    print(f"Мінімальне значення для колонки {column}:")
     return df[column].min()
 
 
 def max_number(column, df):
-    print(f"Максимальне значення для колонки {column}:")
     return df[column].max()
 
 
 def main():
     df = pd.read_csv(select_csv_file())
-    selected_culumn = select_column(df)
+    selected_column = select_column(df)
 
     operation = input("Оберіть бажану операцію (avg/min/max): ")
 
     if operation == "avg":
-        return average_number(selected_culumn, df)
+        print(average_number(selected_column, df))
 
     elif operation == "min":
-        return min_number(selected_culumn, df)
+        num_value = min_number(selected_column, df)
+        print(df.query(f"{selected_column} == {num_value}"))
 
     elif operation == "max":
-        return max_number(selected_culumn, df)
+        num_value = max_number(selected_column, df)
+        print(df.query(f"{selected_column} == {num_value}"))
 
     else:
         raise Exception("Неправильно обрана операція.")
