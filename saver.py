@@ -14,12 +14,10 @@ def save_result(df_result, operation: str, column: str, source_file: str):
         source_file — шлях до оригінального CSV файлу
     """
 
-    # ── 1. Створюємо папку results/ якщо її ще немає ───────────────────────
+    # ── 1. Створюємо папку results ───────────────────────
     os.makedirs("results", exist_ok=True)
 
     # ── 2. Формуємо назву файлу ────────────────────────────────────────────
-    # Беремо тільки ім'я файлу без шляху і без розширення
-    # Наприклад: "/Desktop/Парна практика/sales.csv" → "sales"
     base_name = os.path.splitext(os.path.basename(source_file))[0]
 
     # Формуємо назву: sales_avg_Ціна.txt
